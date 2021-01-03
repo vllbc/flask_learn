@@ -59,11 +59,17 @@ def initdb(drop):
     db.create_all()
     click.echo("ALL WORKS OK!")
 
-@app.route("/")
-def hello():
+@app.context_processor
+def inject_user():
     user = User.query.first()
+    return dict(user=user)
+
+
+
+@app.route("/")
+def index():
     movies = Movie.query.all()
-    return render_template("index.html",user=user,movies=movies)
+    return render_template("index.html",movies=movies)
 
 @app.route('/user/<name>')
 def user(name):
@@ -76,5 +82,10 @@ def test_for_user():
     print(url_for('user',name='wlb'))
     print(url_for("test_for_user"))
     return 'Testpage'
+
+@app.errorhandler(404)
+def not_found(e):
+    user = User.query.first()
+    return render_template('404.html'),404
 if __name__ == "__main__":
     app.run()
