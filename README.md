@@ -1,2 +1,5 @@
-# flask_learn
-My learn of flask
+# **flask学习**
+
+**这是我学习flask的地方，用来储存一些我平时的练习和项目。**
+
+qq:1683070754
