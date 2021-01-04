@@ -9,6 +9,7 @@
     Year <input type="text" name="year" autocomplete="off" required>
     <input class="btn" type="submit" name="submit" value="Add">
 </form>
+
 <ul class="movie-list">
     {% for movie in movies %}
     <li>{{ movie.title }} - {{ movie.year }}
@@ -18,7 +19,7 @@
             <form class="inline-form" method="post" action="{{ url_for('delete_movie', movie_id=movie.id) }}">
                 <input class="btn" type="submit" name="delete" value="Delete" onclick="return confirm('Are you sure?')">
             </form>
-            
+
         </span>
     </li>
     {% endfor %}
