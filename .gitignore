@@ -1,4 +1,4 @@
-env/
-.env
-.flaskenv
-*.db
+learn/env/
+learn/*.db
+practice/env/
+practice/*.db
