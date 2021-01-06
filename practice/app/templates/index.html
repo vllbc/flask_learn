@@ -7,18 +7,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
 </head>
 <body>
-    <h1>Say Hello</h1>
+    {% for message in get_flashed_messages() %}
+    <div class="alert">{{ message }}</div>
+    {% endfor %}
+    <h1>Test</h1>
     <form method="post">
         <input type="text" name='name'>
         <input type="text" name='body'>
         <input class="btn" value='确定' type='submit'>
 
     </form>
-  
+    <strong>-----{{says|length}}个记录-----</strong>
      {% for say in says %}
      <h2>{{say.name}}:</h2>
      <p>{{say.body}}</p>
         {{moment(say.timestamp).fromNow(refresh=True)}}
+    <form action="{{url_for('delete',sayid=say.id)}}" method="post" class='inlines'>
+        <input type="submit" class='btn' name="" id="" value="删除">
+        
+    </form>
+    <a href="{{url_for('edit',sayid=say.id)}}" class="abutton">编辑</a>
+    
      {% endfor %}
     <footer>
         <small>&copy; 2021 <a href="http://vllbc.top">My Blog</a></small>
