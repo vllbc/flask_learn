@@ -1,3 +1,5 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+{% extends 'base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,14 +9,13 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
 </head>
 <body>
+    {% block body %}
     {% for message in get_flashed_messages() %}
     <div class="alert">{{ message }}</div>
     {% endfor %}
     <h1>Test</h1>
-    <form method="post">
-        <input type="text" name='name'>
-        <input type="text" name='body'>
-        <input class="btn" value='确定' type='submit'>
+    <form method="post" class="form">
+        {{wtf.quick_form(form)}}
 
     </form>
     <strong>-----{{says|length}}个记录-----</strong>
@@ -29,6 +30,7 @@
     <a href="{{url_for('edit',sayid=say.id)}}" class="abutton">编辑</a>
     
      {% endfor %}
+     {% endblock body %}
     <footer>
         <small>&copy; 2021 <a href="http://vllbc.top">My Blog</a></small>
     </footer>

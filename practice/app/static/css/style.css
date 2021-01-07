@@ -13,8 +13,7 @@
 }
 .abutton {
     display: block;
-    color: white;
-    text-align: center;
+    color: rgb(112, 17, 17);
     padding: 8px 12px;
     text-decoration: none;;
 }
