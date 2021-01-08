@@ -2,3 +2,5 @@ learn/env/
 learn/*.db
 practice/env/
 practice/*.db
+practice/.idea/
+practice/app/__pycache__/

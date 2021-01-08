@@ -1,19 +1,13 @@
-.alert {
-    position: relative;
-    padding: 7px;
-    margin: 7px 0;
-    border: 1px solid transparent;
-    color: #004085;
-    background-color: #cce5ff;
-    border-color: #b8daff;
-    border-radius: 5px;
+body {
+    margin: auto;
+    max-width: 580px;
+    font-size: 14px;
+    font-family: Helvetica, Arial, sans-serif;
 }
-.inlines {
-     display: inlinex;
-}
-.abutton {
-    display: block;
-    color: rgb(112, 17, 17);
-    padding: 8px 12px;
-    text-decoration: none;;
+
+footer {
+    color: #888;
+    margin-top: 15px;
+    text-align: center;
+    padding: 10px;
 }

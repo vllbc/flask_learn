@@ -1,13 +1,13 @@
 from app import app, db, bootstrap
 
 from flask import render_template, request, redirect, url_for, flash
-from app.forms import newsay, editsay
+from app.forms import NewSay, editsay
 
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
     from app.models import SayModel
-    form = newsay()
+    form = NewSay()
     if form.validate_on_submit():
         data = request.form
         if len(data['name']) > 20 or len(data['body']) > 200:
@@ -17,7 +17,7 @@ def index():
         db.session.add(say)
         db.session.commit()
         return redirect(url_for("index"))
-    says = SayModel.query.all()
+    says = SayModel.query.order_by(SayModel.timestamp.desc()).all()
     return render_template("index.html", says=says, form=form, bootstrap=bootstrap)
 
 
