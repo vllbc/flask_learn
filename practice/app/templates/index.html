@@ -1,44 +1,23 @@
 {% extends 'base.html' %}
 {% import 'bootstrap/wtf.html' as wtf %}
-<!DOCTYPE html>y
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head %}
-    {% endblock head %}
-</head>
-<body>
+    {%  endblock head %}
+
+
     {% block body %}
-    {% for message in get_flashed_messages() %}
-    <div class="alert">{{ message }}</div>
-    {% endfor %}
-    <h1>Test</h1>
-    <form method="post" class="form">
-        {{wtf.quick_form(form)}}
-
-    </form>
-    <strong>-----{{says|length}}个记录-----</strong>
-        <ul class="list-group">
-        {% for say in says %}
-            <li class="list-group-item">
-           <h2>{{say.name}}:</h2>
-        <p>{{say.body}}</p>
-        {{moment(say.timestamp).fromNow(refresh=True)}}
-        <form action="{{url_for('delete',sayid=say.id)}}" method="post" class='inlines'>
-            <input type="submit" class='btn' name="" id="" value="删除">
+     <h1>主页</h1>
+        <form action="" method="post">
+            {{ wtf.quick_form(form) }}
         </form>
-         <a href="{{url_for('edit',sayid=say.id)}}" class="list-group-item">编辑</a>
-         <a href="https://www.baidu.com/s?wd={{ say.name }}" target="_blank" class="list-group-item">搜索</a>
-     {% endfor %}
-            </li>
+        <ul class="movie-list">
+     {% for movie in movies %}
+    <li>{{ movie.title }} - {{ movie.year }}
+        <span class="float-right">
+            <a class="imdb" href="https://www.imdb.com/find?q={{ movie.title }}" target="_blank" title="Find this movie on IMDb">IMDb</a>
+            <a href="{{ url_for('editmovie',movieid=movie.id) }}" class="btn">编辑</a>
+            <a href="{{ url_for('deletemovie',movieid=movie.id) }}" class="btn">删除</a>
+        </span>
+    </li>
+    {% endfor %}
         </ul>
-
-     {% endblock body %}
-    {% block footer %}
-    <footer>
-        <small>&copy; 2021 <a href="http://vllbc.top" target="_blank">My Blog</a></small>
-    </footer>
-    {% endblock %}
-</body>
-</html>
+    {% endblock body %}

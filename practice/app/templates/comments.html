@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block head %}
+    {% endblock head %}
+</head>
+<body>
+    {% block body %}
+    {% for message in get_flashed_messages() %}
+    <div class="alert">{{ message }}</div>
+    {% endfor %}
+    <form method="post" class="form">
+        {{wtf.quick_form(form)}}
+    </form>
+    <h2>
+        <span class="label label-default">{{ says|length }}个留言</span>
+    </h2>
+        <div class="list-group">
+        {% for say in says %}
+            <a class="list-group-item list-group-item-action flex-column">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1 text-success">{{ say.name }}
+                        <small class="text-muted"> #{{ loop.revindex }}</small>
+                    </h5>
+                    <small data-toggle="tooltip" data-placement="top"
+                           data-timestamp="{{ say.timestamp.strftime('%Y-%m-%dT%H:%M:%SZ') }}"
+                           data-delay="500">
+                        {{ moment(say.timestamp).fromNow(refresh=True) }}
+                    </small>
+                </div>
+                <p class="mb-1">{{ say.body }}</p>
+                <form action="{{url_for('delete_comments',sayid=say.id)}}" method="post" class='inlines'>
+                    <input type="submit" class='btn' name="" id="" value="删除">
+                </form>
+                <a href="{{url_for('edit_comments',sayid=say.id)}}" class="list-group-item">编辑</a>
+                <a href="https://www.baidu.com/s?wd={{ say.name }}" target="_blank" class="list-group-item">搜索</a>
+            </a>
+
+        {% endfor %}
+        </div>
+
+     {% endblock body %}
+    {% block footer %}
+    <footer>
+        <small>&copy; 2021 <a href="http://vllbc.top" target="_blank">My Blog</a></small>
+    </footer>
+    {% endblock %}
+</body>
+</html>

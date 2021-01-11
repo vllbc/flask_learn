@@ -18,7 +18,7 @@
         <a class="navbar-brand" href="/">首页</a>
     </div>
     <div>
-        <p class="navbar-text">用户登录</p>
+        <a class="navbar-brand" href="{{ url_for('comments') }}">留言</a>
     </div>
     </div>
 </nav>
@@ -30,11 +30,11 @@
     {% endblock footer %}
 
 
-
     <script src="{{url_for('static',filename='js/jquery.js')}}"></script>
     <script src="{{url_for('static',filename='js/jquery.mini.js')}}"></script>
     <script src="{{url_for('static',filename='js/bootstrap.js')}}"></script>
     <script src="{{url_for('static',filename='js/bootstrap.mini.js')}}"></script>
+    <script src="{{url_for('static',filename='js/script.js')}}"></script>
     {% block scripts %}
     {% endblock scripts %}
 </body>
