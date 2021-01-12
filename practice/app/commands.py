@@ -1,7 +1,7 @@
 import click
 from app.models import MovieModel
 from app import db,app
-from app.models import SayModel
+from app.models import SayModel,UserModel
 
 
 @app.cli.command()
@@ -42,5 +42,25 @@ def forge(count):
     for i in range(count):
         say = SayModel(name=faker.name(),body=faker.sentence(),timestamp=faker.date_time_this_year())
         db.session.add(say)
+    db.session.commit()
+    click.echo("ALL WORKS OK!")
+
+
+@app.cli.command()
+@click.option("--username",prompt=True)
+@click.option("--password",prompt=True,hide_input=True,confirmation_prompt=True)
+def admin(username,password):
+    db.create_all()
+
+    user = UserModel.query.first()
+    if user is not None:
+        click.echo("Updating user..")
+        user.username = username
+        user.set_password(password)
+    else:
+        click.echo("Creating User...")
+        user = UserModel(username=username,name='Admin')
+        user.set_password(password)
+        db.session.add(user)
     db.session.commit()
     click.echo("ALL WORKS OK!")

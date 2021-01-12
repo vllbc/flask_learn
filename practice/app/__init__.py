@@ -13,8 +13,24 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 
-login_manager = LoginManager
+login_manager = LoginManager(app)
 moment = Moment(app)
 bootstrap = Bootstrap(app)
+
+login_manager.login_view = 'login'
+
+
+@login_manager.user_loader
+def load_user(userid):
+    from app.models import UserModel
+    user = UserModel.query.get(int(userid))
+    return user
+
+
+@app.context_processor
+def inject_user():
+    from app.models import UserModel
+    user = UserModel.query.first()
+    return dict(user=user)
 
 from app import views, commands, errors

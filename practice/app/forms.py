@@ -25,3 +25,14 @@ class EditMovie(FlaskForm):
     title = StringField(u'电影名', validators=[DataRequired("不能为空")])
     year = StringField(u'年份', validators=[DataRequired("不能为空")])
     submit = SubmitField(u"更新")
+
+
+class LoginForm(FlaskForm):
+    username = StringField(u'用户名',validators=[DataRequired("不能为空")])
+    password = StringField(u'密码',validators=[DataRequired("不能为空")])
+    submit = SubmitField(u'登录')
+
+
+class SettingForm(FlaskForm):
+    username = StringField(u'用户名',validators=[DataRequired("不能为空")])
+    submit = SubmitField(u'修改')
