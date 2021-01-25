@@ -10,6 +10,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'dev'
 app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///" + os.path.join(os.path.dirname(app.root_path), 'data.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['JSON_AS_ASCII'] = False
 
 db = SQLAlchemy(app)
 
@@ -33,4 +34,7 @@ def inject_user():
     user = UserModel.query.first()
     return dict(user=user)
 
+
 from app import views, commands, errors
+from app.api import api_function
+

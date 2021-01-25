@@ -1,4 +1,4 @@
-from flask import render_template, request, redirect, url_for, flash
+from flask import render_template, request, redirect, url_for, flash, jsonify, abort
 from flask_login import login_required, login_user, logout_user
 
 from app import app, db
@@ -31,7 +31,7 @@ def editmovie(movieid):
         data = request.form
         if len(data['title']) > 20 or len(data['year']) != 4:
             flash("格式不对！")
-            return redirect(url_for("editmovie",movieid=movieid))
+            return redirect(url_for("editmovie", movieid=movieid))
         movie.title = data['title']
         movie.year = data['year']
         db.session.commit()
@@ -121,3 +121,5 @@ def settings():
         db.session.commit()
         return redirect(url_for("index"))
     return render_template("setting.html", form=form)
+
+

@@ -9,6 +9,7 @@
         <form action="" method="post">
             {{ wtf.quick_form(form) }}
         </form>
+        <h2><span class="label label-default">{{ movies|length }}个记录</span></h2>
         <ul class="movie-list">
      {% for movie in movies %}
     <li>{{ movie.title }} - {{ movie.year }}
